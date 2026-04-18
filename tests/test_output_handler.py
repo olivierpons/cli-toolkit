@@ -62,9 +62,7 @@ def test_has_rich_flag_matches_runtime_setup() -> None:
 def test_rich_print_handles_string_renderable() -> None:
     """rich_print must accept a plain string and write it to stdout."""
     stdout: io.StringIO = io.StringIO()
-    out: OutputHandler = OutputHandler(
-        verbosity=1, stdout=stdout, use_rich=False
-    )
+    out: OutputHandler = OutputHandler(verbosity=1, stdout=stdout, use_rich=False)
     out.rich_print("hello world")
     assert "hello world" in stdout.getvalue()
 
@@ -72,9 +70,7 @@ def test_rich_print_handles_string_renderable() -> None:
 def test_concurrent_output_does_not_interleave_characters() -> None:
     """The output lock must serialize concurrent writes from threads."""
     stdout: io.StringIO = io.StringIO()
-    out: OutputHandler = OutputHandler(
-        verbosity=1, stdout=stdout, use_rich=False
-    )
+    out: OutputHandler = OutputHandler(verbosity=1, stdout=stdout, use_rich=False)
 
     def worker(index: int) -> None:
         for _ in range(50):

@@ -141,7 +141,6 @@ import threading
 from datetime import datetime
 from typing import IO, Any
 
-
 # ===================================================================
 # Rich fallback stubs (defined first so the except block can bind them)
 # ===================================================================
@@ -150,7 +149,7 @@ from typing import IO, Any
 class _FallbackText:
     """Minimal stand-in for `rich.text.Text`."""
 
-    def __init__(self, text: str = "", style: str = "") -> None:  # noqa
+    def __init__(self, text: str = "", style: str = "") -> None:
         self._text = text
 
     def __str__(self) -> str:
@@ -163,12 +162,12 @@ class _FallbackTable:
     Renders columns as tab-separated rows.
     """
 
-    def __init__(self, *, title: str = "", **kwargs: Any) -> None:  # noqa
+    def __init__(self, *, title: str = "", **kwargs: Any) -> None:
         self._title = title
         self._columns: list[str] = []
         self._rows: list[list[str]] = []
 
-    def add_column(self, header: str, **kwargs: Any) -> None:  # noqa
+    def add_column(self, header: str, **kwargs: Any) -> None:
         """Append a column header."""
         self._columns.append(header)
 
@@ -192,9 +191,7 @@ class _FallbackTable:
 class _FallbackPanel:
     """Minimal stand-in for `rich.panel.Panel`."""
 
-    def __init__(
-            self, content: str = "", *, title: str = "", **kwargs: Any  # noqa
-    ) -> None:
+    def __init__(self, content: str = "", *, title: str = "", **kwargs: Any) -> None:
         self._content = str(content)
         self._title = title
 
@@ -214,7 +211,7 @@ class _FallbackConsole:
             raise RuntimeError("No output stream available")
         self._file: IO[str] = stream
 
-    def print(self, *args: Any, **kwargs: Any) -> None:  # noqa
+    def print(self, *args: Any, **kwargs: Any) -> None:
         """Write stringified args to the underlying stream."""
         parts = " ".join(str(a) for a in args)
         self._file.write(parts + "\n")
@@ -536,9 +533,7 @@ class OutputHandler:
             self._log_dispatch(message, is_error=True)
             if self._use_rich:
                 ts = self._timestamp()
-                self._err_console.print(
-                    f"> {ts} : ERROR: {message}", style="bold red"
-                )
+                self._err_console.print(f"> {ts} : ERROR: {message}", style="bold red")
             else:
                 ts = self._timestamp()
                 line = f"> {ts} : ERROR: {message}"

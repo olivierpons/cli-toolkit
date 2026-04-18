@@ -12,9 +12,7 @@ from cli_toolkit import PreservingHelpFormatter, add_short_help, build_parser
 
 def test_build_parser_without_short_help_keeps_standard_argparse_behaviour() -> None:
     """-h and --help should behave identically when short_help is empty."""
-    parser: argparse.ArgumentParser = build_parser(
-        prog="tool", description="A tool."
-    )
+    parser: argparse.ArgumentParser = build_parser(prog="tool", description="A tool.")
     with pytest.raises(SystemExit):
         parser.parse_args(["--help"])
 
@@ -58,9 +56,7 @@ def test_version_action_substitutes_prog_name() -> None:
     parser: argparse.ArgumentParser = build_parser(
         prog="awesome-tool", description="test"
     )
-    parser.add_argument(
-        "-V", "--version", action="version", version="%(prog)s 1.2.3"
-    )
+    parser.add_argument("-V", "--version", action="version", version="%(prog)s 1.2.3")
     buffer: io.StringIO = io.StringIO()
     parser._print_message = lambda msg, _file=None: buffer.write(msg)  # type: ignore[method-assign]
     with pytest.raises(SystemExit):
